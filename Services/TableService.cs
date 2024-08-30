@@ -63,5 +63,16 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
                 SeatingCapacity = t.SeatingCapacity 
             }).ToList();
         }
+
+        public async Task<IEnumerable<TableDTO>> AvailableTablesSpecificDateAndTimeAsync(DateTime dateTime)
+        {
+            var listOfAvailableTables = await _tableRepo.AvailableTablesSpecificDateAndTimeAsync(dateTime);
+
+            return listOfAvailableTables.Select(t => new TableDTO
+            {
+                TableId = t.TableId,
+                SeatingCapacity = t.SeatingCapacity
+            }).ToList();
+        }
     }
 }

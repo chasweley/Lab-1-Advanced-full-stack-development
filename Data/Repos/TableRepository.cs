@@ -47,5 +47,14 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
             var listOfTables = await _context.Tables.ToListAsync();
             return listOfTables;
         }
+
+        public async Task<IEnumerable<Table>> AvailableTablesSpecificDateAndTimeAsync(DateTime dateTime)
+        {
+            var listOfAvailableTables = await _context.Bookings
+                .Where(d => d.DateAndTime != dateTime)
+                .Select(t => t.Tables)
+                .ToListAsync();
+            return listOfAvailableTables;
+        }
     }
 }
