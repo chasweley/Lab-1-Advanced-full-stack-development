@@ -5,7 +5,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services.IServices
 {
     public interface IUserService
     {
-        Task<User> GetUserByIdAsync(int userId);
+        Task<UserDTO> GetUserByIdAsync(int userId);
         Task CreateUserAsync(UserDTO user);
         Task UpdateUserAsync(UserDTO user);
         Task DeleteUserAsync(int userId);

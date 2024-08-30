@@ -14,9 +14,18 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
             _userRepo = userRepo;
         }
 
-        public async Task<User> GetUserByIdAsync(int userId)
+        public async Task<UserDTO> GetUserByIdAsync(int userId)
         {
-            throw new NotImplementedException();
+            var user = await _userRepo.GetUserByIdAsync(userId);
+
+            if (user == null) { return null; }
+
+            return new UserDTO
+            {
+                UserId = userId,
+                Name = user.Name,
+                PhoneNo = user.PhoneNo
+            };
         }
 
         public async Task CreateUserAsync(UserDTO user)
@@ -32,12 +41,22 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
 
         public async Task UpdateUserAsync(UserDTO user)
         {
-            throw new NotImplementedException();
+            if (user != null)
+            {
+                var updatedUser = new User
+                {
+                    UserId = user.UserId,
+                    Name = user.Name,
+                    PhoneNo = user.PhoneNo
+                };
+
+                await _userRepo.UpdateUserAsync(updatedUser);
+            }
         }
 
         public async Task DeleteUserAsync(int userId)
         {
-            throw new NotImplementedException();
+            await _userRepo.DeleteUserAsync(userId);
         }
 
         public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()

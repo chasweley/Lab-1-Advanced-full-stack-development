@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labb_1___Avancerad_fullstackutveckling.Migrations
 {
     [DbContext(typeof(TableBookingContext))]
-    [Migration("20240829171016_Init")]
+    [Migration("20240830074853_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -58,6 +58,31 @@ namespace Labb_1___Avancerad_fullstackutveckling.Migrations
                     b.HasIndex("UsersUserId");
 
                     b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("Labb_1___Avancerad_fullstackutveckling.Models.MenuItem", b =>
+                {
+                    b.Property<int>("MenuItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MenuItemId"));
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("Price")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("MenuItemId");
+
+                    b.ToTable("MenuItems");
                 });
 
             modelBuilder.Entity("Labb_1___Avancerad_fullstackutveckling.Models.Table", b =>

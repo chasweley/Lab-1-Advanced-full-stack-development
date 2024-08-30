@@ -1,14 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace Labb_1___Avancerad_fullstackutveckling.Models
 {
-    public class Menu
+    public class MenuItem
     {
         [Key]
-        public int MenuId { get; set; }
+        public int MenuItemId { get; set; }
         [Required]
         [MaxLength(50)]
-        public string MenuItem { get; set; }
+        public string Name { get; set; }
+        [Precision(10,2)]
         public decimal Price { get; set; }
         [Required]
         public bool IsAvailable { get; set; }

@@ -2,6 +2,8 @@
 using Labb_1___Avancerad_fullstackutveckling.Data;
 using Labb_1___Avancerad_fullstackutveckling.Data.Repos;
 using Labb_1___Avancerad_fullstackutveckling.Data.Repos.IRepos;
+using Labb_1___Avancerad_fullstackutveckling.Services.IServices;
+using Labb_1___Avancerad_fullstackutveckling.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Labb_1___Avancerad_fullstackutveckling
@@ -20,6 +22,16 @@ namespace Labb_1___Avancerad_fullstackutveckling
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
+
+            builder.Services.AddScoped<ITableRepository, TableRepository>();
+            builder.Services.AddScoped<ITableService, TableService>();
+
+            //builder.Services.AddScoped<IUserRepository, UserRepository>();
+            //builder.Services.AddScoped<IUserService, UserService>();
+
+            builder.Services.AddScoped<IMenuItemRepository, MenuItemRepository>();
+            builder.Services.AddScoped<IMenuItemService, MenuItemService>();
 
             var app = builder.Build();
 

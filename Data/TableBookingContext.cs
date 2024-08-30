@@ -10,5 +10,6 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Table> Tables { get; set; }
         public DbSet<Booking> Bookings { get; set; }
+        public DbSet<MenuItem> MenuItems { get; set; }
     }
 }
