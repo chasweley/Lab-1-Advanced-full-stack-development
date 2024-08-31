@@ -60,38 +60,36 @@ namespace Labb_1___Avancerad_fullstackutveckling.Migrations
                     BookingId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NoOfCustomers = table.Column<int>(type: "int", nullable: false),
-                    DateAndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FK_UserId = table.Column<int>(type: "int", nullable: false),
-                    UsersUserId = table.Column<int>(type: "int", nullable: false),
-                    FK_TableId = table.Column<int>(type: "int", nullable: false),
-                    TablesTableId = table.Column<int>(type: "int", nullable: false)
+                    BookedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    TableId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bookings", x => x.BookingId);
                     table.ForeignKey(
-                        name: "FK_Bookings_Tables_TablesTableId",
-                        column: x => x.TablesTableId,
+                        name: "FK_Bookings_Tables_TableId",
+                        column: x => x.TableId,
                         principalTable: "Tables",
                         principalColumn: "TableId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Bookings_Users_UsersUserId",
-                        column: x => x.UsersUserId,
+                        name: "FK_Bookings_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bookings_TablesTableId",
+                name: "IX_Bookings_TableId",
                 table: "Bookings",
-                column: "TablesTableId");
+                column: "TableId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bookings_UsersUserId",
+                name: "IX_Bookings_UserId",
                 table: "Bookings",
-                column: "UsersUserId");
+                column: "UserId");
         }
 
         /// <inheritdoc />

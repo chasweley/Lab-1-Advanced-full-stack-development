@@ -10,14 +10,14 @@ namespace Labb_1___Avancerad_fullstackutveckling.Models
         [Required]
         public int NoOfCustomers { get; set; }
         [Required]
-        public DateTime DateAndTime { get; set; }
+        public DateTime BookedDateTime { get; set; }
 
         [ForeignKey("User")]
-        public int FK_UserId { get; set; }
-        public User Users { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
 
         [ForeignKey("Table")]
-        public int FK_TableId { get; set; }
-        public Table Tables { get; set; }
+        public int TableId { get; set; }
+        public Table Table { get; set; }
     }
 }

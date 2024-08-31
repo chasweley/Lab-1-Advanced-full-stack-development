@@ -51,8 +51,8 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
         public async Task<IEnumerable<Table>> AvailableTablesSpecificDateAndTimeAsync(DateTime dateTime)
         {
             var listOfAvailableTables = await _context.Bookings
-                .Where(d => d.DateAndTime != dateTime)
-                .Select(t => t.Tables)
+                .Where(d => d.BookedDateTime != dateTime)
+                .Select(t => t.Table)
                 .ToListAsync();
             return listOfAvailableTables;
         }

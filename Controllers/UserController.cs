@@ -1,6 +1,5 @@
 ﻿using Labb_1___Avancerad_fullstackutveckling.Models.DTOs;
 using Labb_1___Avancerad_fullstackutveckling.Services.IServices;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Labb_1___Avancerad_fullstackutveckling.Controllers
@@ -23,28 +22,28 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
             return Ok(user);
         }
 
-        [HttpPost("CreateUser")]
+        [HttpPost("Create")]
         public async Task<ActionResult> CreateUser(UserDTO user)
         {
             await _userService.CreateUserAsync(user);
             return Ok(user);
         }
 
-        [HttpPut("UpdateUser")]
+        [HttpPut("Update")]
         public async Task<ActionResult> UpdateUser(UserDTO user)
         {
             await _userService.UpdateUserAsync(user);
             return Ok(user);
         }
 
-        [HttpDelete("DeleteUser")]
+        [HttpDelete("Delete")]
         public async Task<ActionResult> DeleteUser(int userId)
         {
             await _userService.DeleteUserAsync(userId);
             return Ok();
         }
 
-        [HttpGet("All")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers()
         {
             var usersList = await _userService.GetAllUsersAsync();

@@ -45,11 +45,18 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
             return Ok();
         }
 
-        [HttpGet("All")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<TableDTO>>> GetAllTables()
         {
             var listOfTables = await _tableService.GetAllTablesAsync();
             return Ok(listOfTables);
+        }
+
+        [HttpGet("Availability/{dateTime}")]
+        public async Task<ActionResult<IEnumerable<TableDTO>>> AvailableTablesSpecificDateAndTime(DateTime dateTime)
+        {
+            var listOfAvailableTables = await _tableService.AvailableTablesSpecificDateAndTimeAsync(dateTime);
+            return Ok(listOfAvailableTables);
         }
     }
 }

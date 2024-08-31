@@ -25,28 +25,28 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
             return Ok(menuItem);
         }
 
-        [HttpPost("CreateMenuItem")]
+        [HttpPost("Create")]
         public async Task<ActionResult> CreateMenuItem(MenuItem menuItem)
         {
             await _menuItemService.CreateMenuItemAsync(menuItem);
             return Ok(menuItem);
         }
 
-        [HttpPut("UpdateMenuItem")]
+        [HttpPut("Update")]
         public async Task<ActionResult> UpdateMenuItem(MenuItem menuItem)
         {
             await _menuItemService.UpdateMenuItemAsync(menuItem);
             return Ok(menuItem);
         }
 
-        [HttpDelete("DeleteMenuItem")]
+        [HttpDelete("Delete")]
         public async Task<ActionResult> DeleteMenuItem(int menuItemId)
         {
             await _menuItemService.DeleteMenuItemAsync(menuItemId);
             return Ok();
         }
 
-        [HttpGet("All")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<MenuItem>>> GetAllMenuItems()
         {
             var listOfMenuItems = await _menuItemService.GetAllMenuItemsAsync();

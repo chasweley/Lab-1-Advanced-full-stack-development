@@ -1,5 +1,4 @@
-﻿using Labb_1___Avancerad_fullstackutveckling.Models;
-using Labb_1___Avancerad_fullstackutveckling.Models.DTOs;
+﻿using Labb_1___Avancerad_fullstackutveckling.Models.DTOs;
 
 namespace Labb_1___Avancerad_fullstackutveckling.Services.IServices
 {

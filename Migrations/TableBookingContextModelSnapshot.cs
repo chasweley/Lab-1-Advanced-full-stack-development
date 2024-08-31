@@ -30,29 +30,23 @@ namespace Labb_1___Avancerad_fullstackutveckling.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"));
 
-                    b.Property<DateTime>("DateAndTime")
+                    b.Property<DateTime>("BookedDateTime")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("FK_TableId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FK_UserId")
-                        .HasColumnType("int");
 
                     b.Property<int>("NoOfCustomers")
                         .HasColumnType("int");
 
-                    b.Property<int>("TablesTableId")
+                    b.Property<int>("TableId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UsersUserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("BookingId");
 
-                    b.HasIndex("TablesTableId");
+                    b.HasIndex("TableId");
 
-                    b.HasIndex("UsersUserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
                 });
@@ -123,21 +117,21 @@ namespace Labb_1___Avancerad_fullstackutveckling.Migrations
 
             modelBuilder.Entity("Labb_1___Avancerad_fullstackutveckling.Models.Booking", b =>
                 {
-                    b.HasOne("Labb_1___Avancerad_fullstackutveckling.Models.Table", "Tables")
+                    b.HasOne("Labb_1___Avancerad_fullstackutveckling.Models.Table", "Table")
                         .WithMany("Bookings")
-                        .HasForeignKey("TablesTableId")
+                        .HasForeignKey("TableId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Labb_1___Avancerad_fullstackutveckling.Models.User", "Users")
+                    b.HasOne("Labb_1___Avancerad_fullstackutveckling.Models.User", "User")
                         .WithMany("Bookings")
-                        .HasForeignKey("UsersUserId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Tables");
+                    b.Navigation("Table");
 
-                    b.Navigation("Users");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Labb_1___Avancerad_fullstackutveckling.Models.Table", b =>

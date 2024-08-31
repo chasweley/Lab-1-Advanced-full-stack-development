@@ -1,6 +1,5 @@
 ﻿using Labb_1___Avancerad_fullstackutveckling.Data.Repos.IRepos;
 using Labb_1___Avancerad_fullstackutveckling.Models;
-using Labb_1___Avancerad_fullstackutveckling.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
