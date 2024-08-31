@@ -9,5 +9,6 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos.IRepos
         Task UpdateBookingAsync(Booking booking);
         Task DeleteBookingAsync(int bookingId);
         Task<IEnumerable<Booking>> GetAllBookingsAsync();
+        Task CheckIfUserAndTableExist(int userId, int tableId);
     }
 }
