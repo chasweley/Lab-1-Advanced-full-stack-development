@@ -1,8 +1,5 @@
 ﻿using Labb_1___Avancerad_fullstackutveckling.Models;
-using Labb_1___Avancerad_fullstackutveckling.Models.DTOs;
-using Labb_1___Avancerad_fullstackutveckling.Services;
 using Labb_1___Avancerad_fullstackutveckling.Services.IServices;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Labb_1___Avancerad_fullstackutveckling.Controllers

@@ -3,9 +3,6 @@ using Labb_1___Avancerad_fullstackutveckling.Models;
 using Labb_1___Avancerad_fullstackutveckling.Models.DTOs;
 using Labb_1___Avancerad_fullstackutveckling.Services.IServices;
 using Labb_1___Avancerad_fullstackutveckling.Helpers;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Labb_1___Avancerad_fullstackutveckling.Services
 {
