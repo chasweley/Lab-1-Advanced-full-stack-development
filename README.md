@@ -3,8 +3,8 @@
 ## ER diagram
 ![ER-diagram - Labb 1](https://github.com/user-attachments/assets/b5ccabaa-5518-4e03-949e-c0aa535490d7)
 
-### User
-```
+## User
+```c#
 GET /api/User/{id}
 ```
 **Response:**
@@ -74,7 +74,7 @@ GET /api/User/
 }
 ```
 
-### Table
+## Table
 ```c#
 GET /api/Table/{tableId}
 ```
@@ -155,7 +155,7 @@ GET /api/Table/Availability/{dateTime}
 }
 ```
 
-### Booking
+## Booking
 ```c#
 GET /api/Booking/{bookingId}
 ```
