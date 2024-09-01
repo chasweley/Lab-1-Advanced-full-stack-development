@@ -4,40 +4,38 @@
 ![ER-diagram - Labb 1](https://github.com/user-attachments/assets/b5ccabaa-5518-4e03-949e-c0aa535490d7)
 
 ## User
-```c#
-GET /api/User/{id}
 ```
-**Response:**
-200 OK:
+GET /api/User/{userId}
+```
+**Response body:**
+200 OK
 ```json
 {
   "userId": 1,
   "name": "Charlotte",
-  "phoneNo": "07yyyyyyyy"
+  "phoneNumber": "07yyyyyyyy"
 }
 ```
-404: No user found.
 
-```c#
+```
 POST /api/User/Create
 ```
-**Request Body:**
+**Request body:**
 ```json
 {
-  "userId": "0"
   "name": "Charlotte",
-  "phoneNo": "07xxxxxxxx"
+  "phoneNumber": "07xxxxxxxx"
 }
 ```
 
-**Response:**
-200 OK: User created successfully.
-400: Failed create user: {reason}
+**Response body:**
+200 OK User created successfully.
+400 An error occured while trying to create user. {ex.Message}
 
-```c#
+```
 POST /api/User/Update
 ```
-**Request Body:**
+**Request body:**
 ```json
 {
   "userId": "1",
@@ -46,195 +44,278 @@ POST /api/User/Update
 }
 ```
 
-**Response:**
-200 OK: User updated successfully.
-400: Failed to update customer. {reason}
+**Response body:**
+200 OK User updated successfully.
+400 An error occured while trying to update user. {ex.Message}
 
-```c#
+```
 DELETE /api/User/Delete
 ```
-**Response:**
-200 OK: User deleted successfully.
-400: Failed to delete user: {reason}
+**Response body:**
+200 OK User deleted successfully.
+400 An error occured while trying to delete user. {ex.Message}
 
-```c#
+```
 GET /api/User/
 ```
-**Response:**
-200 OK:
+**Response body:**
+200 OK
 ```json
-{
-  "userId": 1,
-  "name": "Charlotte",
-  "phoneNo": "07yyyyyyy"
-},
-{
-  "name": "Anna",
-  "phoneNo": "07zzzzzzzz"
-}
+[
+  {
+    "userId": 1,
+    "name": "Charlotte",
+    "phoneNumber": "07yyyyyyy"
+  },
+  {
+    "userId": 2,
+    "name": "Anna",
+    "phoneNumber": "07zzzzzzzz"
+  }
+]
 ```
 
 ## Table
-```c#
+```
 GET /api/Table/{tableId}
 ```
-**Request Body:**
+**Request body:**
 ```json
 {
   "tableId": 1,
-  "seatingCapacity": 12,
+  "seatingCapacity": 12
 }
 ```
-404: No table found.
+400: No table found.
 
-```c#
+```
 POST /api/Table/Create
 ```
-**Request Body:**
+**Request body:**
 ```json
 {
-  "tableId": 0,
   "seatingCapacity": 12
 }
 ```
 
-**Response:**
-200 OK: Table successfully created.
-400: Failed to create table: {reason}
+**Response body:**
+200 OK Table successfully created.
+400 An error occured while trying to create table. {ex.Message}
 
-```c#
+```
 POST /api/Table/Update
 ```
-**Request Body:**
+**Request body:**
 ```json
-{
- "id": 2,
-"seatingCapacity": 8
-}
-```
-
-**Response:**
-200 OK: Table successfully updated.
-400: Failed to update table: {reason}
-
-```c#
-DELETE /api/Table/Delete
-```
-**Response:**
-200 OK: Table successfully deleted.
-400: Failed to delete table: {reason}
-
-```c#
-GET /api/Table/
-```
-**Response:**
-200 OK:
-```json
-{
-  "tableId": 1,
-  "seatingCapacity": 12,
-},
 {
   "tableId": 2,
-  "seatingCapacity": 8,
-},
-{
-  "tableId": 3,
-  "seatingCapacity": 4,
+  "seatingCapacity": 8
 }
 ```
 
-```c#
+**Response body:**
+200 OK Table successfully updated.
+400 An error occured while trying to update table. {ex.Message}
+
+```
+DELETE /api/Table/Delete
+```
+**Response body:**
+200 OK Table successfully deleted.
+400 An error occured while trying to delete table. {ex.Message}
+
+```
+GET /api/Table/
+```
+**Response body:**
+200 OK
+```json
+[
+  {
+    "tableId": 1,
+    "seatingCapacity": 12,
+  },
+  {
+    "tableId": 2,
+    "seatingCapacity": 8,
+  },
+  {
+    "tableId": 3,
+    "seatingCapacity": 4,
+  }
+]
+```
+
+```
 GET /api/Table/Availability/{dateTime}
 ```
-**Response:**
+**Response body:**
 ```json
 {
-  "id": 2,
-  "seatingCapacity": 8,
+  "tableId": 2,
+  "seatingCapacity": 8
 }
 ```
 
 ## Booking
-```c#
+```
 GET /api/Booking/{bookingId}
 ```
-**Response:**
-200 OK:
+**Response body:**
+200 OK
 ```json
 {
   "bookingId": 1,
-  "noOfCustomers": 12,
-  "dateAndTime": "2024-09-01T12:00"
-  "userId": "1",
+  "numberOfCustomers": 10,
+  "dateAndTime": "2024-09-01T12:00:00"
+  "userId": "2",
   "tableId": "1"
 }
 ```
-404: No booking found.
 
-```c#
+```
 POST /api/Booking/Create
 ```
-**Request Body:**
+**Request body:**
 ```json
 {
-  "bookingId": 1,
-  "noOfCustomers": 12,
-  "dateAndTime": "2024-09-01T12:00"
-  "userId": "1",
+  "numberOfCustomers": 12,
+  "bookedDateTime": "2024-09-01T12:00",
+  "userId": "2",
   "tableId": "1"
 }
 ```
 
 **Response:**
-200 OK: Booking created successfully.
-400: Failed to create booking: {reason}
-400: User was not found.
-400: Table was not found.
+200 OK Booking created successfully.
+400 An error occured while trying to create booking. {ex.Message}
+500 User was not found.
+500 Table was not found.
 
-```c#
+```
 POST /api/Booking/Update
 ```
-**Request Body:**
+**Request body:**
 ```json
 {
   "bookingId": 1,
-  "noOfCustomers": 10,
-  "dateAndTime": "2024-09-01T12:00"
-  "userId": "1",
+  "numberOfCustomers": 10,
+  "bookedDateTime": "2024-09-01T12:00:00",
+  "userId": "2",
   "tableId": "1"
 }
 ```
 
-**Response:**
-200 OK: Booking updated successfully.
-400: Failed to update booking: {reason}
+**Response body:**
+200 OK Booking updated successfully.
+400 An error occured while trying to update booking. {ex.Message}
 
-```c#
+```
 DELETE /api/Booking/Delete
 ```
-**Response:**
-200 OK: Booking deleted successfully.
-400: Failed to delete booking: {reason}
+**Response body:**
+200 OK Booking deleted successfully.
+400 An error occured while trying to delete booking. {ex.Message}
 
-```c#
+```
 GET /api/Booking
 ```
-**Response:**
-200 OK:
+**Response body:**
+200 OK
+```json
+[
+    {
+    "bookingId": 1,
+    "numberOfCustomers": 10,
+    "bookedDateTime": "2024-09-01T12:00:00",
+    "userId": 2,
+    "tableId": 1
+  },
+  {
+    "bookingId": 2,
+    "numberOfCustomers": 4,
+    "bookedDateTime": "2024-09-01T18:30:00",
+    "userId": 1,
+    "tableId": 2
+  }
+]
+```
+400 {ex.Message}
+
+## MenuItem
+```c#
+POST /api/MenuItem/{menuItemId}
+```
+**Response body:**
+200 OK
 ```json
 {
-  "bookingId": 1,
-  "noOfCustomers": 10,
-  "dateAndTime": "2024-09-01T12:00"
-  "userId": "1",
-  "tableId": "1"
-},
-{
-  "bookingId": 2,
-  "noOfCustomers": 2,
-  "dateAndTime": "2024-09-01T18:00"
-  "userId": "1",
-  "tableId": "2"
+  "menuItemId": 1,
+  "name": "Pancakes",
+  "price": 5.99,
+  "isAvailable": true
 }
 ```
+
+```c#
+POST /api/MenuItem/Create
+```
+**Request body:**
+```json
+{
+  "name": "Waffles",
+  "price": 6.99,
+  "isAvailable": true
+}
+```
+
+**Response body:**
+200 OK User created successfully.
+400 An error occured while trying to create menu item. {ex.Message}
+
+```c#
+POST /api/MenuItem/Update
+```
+**Request body:**
+```json
+{
+  "menuItemId": 1,
+  "name": "Pancakes",
+  "price": 5.99,
+  "isAvailable": false
+}
+```
+
+**Response body:**
+200 OK Table successfully updated.
+400 An error occured while trying to update menu item. {ex.Message}
+
+```c#
+DELETE /api/MenuItem/Delete
+```
+**Response:**
+200 OK Menu item deleted successfully.
+400 An error occured while trying to delete menu item. {ex.Message}
+
+```c#
+GET /api/MenuItem
+```
+**Response body:**
+200 OK
+```json
+[
+  {
+    "menuItemId": 1,
+    "name": "Pancakes",
+    "price": 5.99,
+    "isAvailable": false
+  },
+  {
+    "menuItemId": 2,
+    "name": "Waffles",
+    "price": 6.99,
+    "isAvailable": true
+  }
+]
+```
+400 {ex.Message}
