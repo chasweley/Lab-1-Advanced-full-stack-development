@@ -9,7 +9,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos.IRepos
         Task UpdateTableAsync(Table table);
         Task DeleteTableAsync(int tableId);
         Task<IEnumerable<Table>> GetAllTablesAsync();
-        Task<IEnumerable<Table>> AvailableTablesSpecificDateAndTimeAsync(DateTime dateTime);
-        //Task<IEnumerable<Table>> AvailableTablesSpecificTimeAsync(TimeOnly time);
+        Task<List<int>> AvailableTablesSpecificDateAndTimeAsync(DateTime dateTime);
+        Task<bool> CheckIfTableAlreadyBooked(int tableId, DateTime dateTime);
     }
 }

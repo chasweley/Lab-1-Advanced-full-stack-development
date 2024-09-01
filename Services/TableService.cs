@@ -44,7 +44,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"An error occured while trying to create table. {ex.Message}");
+                 throw new Exception($"An error occured while trying to create table. {ex.Message}");
             }
         }
 
@@ -103,7 +103,21 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
         {
             try
             {
-                var listOfAvailableTables = await _tableRepo.AvailableTablesSpecificDateAndTimeAsync(dateTime);
+                var listOfBookedTables = await _tableRepo.AvailableTablesSpecificDateAndTimeAsync(dateTime);
+                var listOfTables = await _tableRepo.GetAllTablesAsync();
+
+                List<Table> listOfAvailableTables = listOfTables.ToList();
+
+                if (listOfBookedTables == null)
+                {
+                    return null;
+                }
+
+                foreach (var bookedTable in listOfBookedTables)
+                {
+                    var tableToRemove = listOfAvailableTables.SingleOrDefault(t => t.TableId == bookedTable);
+                    listOfAvailableTables.Remove(tableToRemove);
+                }
 
                 return listOfAvailableTables.Select(t => new TableDTO
                 {

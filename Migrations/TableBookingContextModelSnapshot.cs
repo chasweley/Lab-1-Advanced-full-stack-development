@@ -33,6 +33,9 @@ namespace Labb_1___Avancerad_fullstackutveckling.Migrations
                     b.Property<DateTime>("BookedDateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("BookingEnds")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("NoOfCustomers")
                         .HasColumnType("int");
 

@@ -11,6 +11,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Models
         public int NoOfCustomers { get; set; }
         [Required]
         public DateTime BookedDateTime { get; set; }
+        public DateTime BookingEnds { get; set; }
 
         [ForeignKey("User")]
         public int UserId { get; set; }

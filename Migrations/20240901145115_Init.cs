@@ -61,6 +61,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NoOfCustomers = table.Column<int>(type: "int", nullable: false),
                     BookedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BookingEnds = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     TableId = table.Column<int>(type: "int", nullable: false)
                 },

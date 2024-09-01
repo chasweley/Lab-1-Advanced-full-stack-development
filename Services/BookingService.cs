@@ -3,6 +3,7 @@ using Labb_1___Avancerad_fullstackutveckling.Models;
 using Labb_1___Avancerad_fullstackutveckling.Models.DTOs;
 using Labb_1___Avancerad_fullstackutveckling.Services.IServices;
 using Labb_1___Avancerad_fullstackutveckling.Helpers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Labb_1___Avancerad_fullstackutveckling.Services
 {
@@ -32,6 +33,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
                     BookingId = bookingId,
                     NoOfCustomers = booking.NoOfCustomers,
                     BookedDateTime = booking.BookedDateTime,
+                    BookingEnds = booking.BookingEnds,
                     UserId = booking.UserId,
                     TableId = booking.TableId
                 };
@@ -51,23 +53,32 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
             // To clean up the time so seconds and milliseconds won't be saved to the database
             DateTime dateTime = Helper.DateTimeCleanUp(booking.BookedDateTime);
 
-            try
-            {
-                var newBooking = new Booking
-                {
-                    NoOfCustomers = booking.NoOfCustomers,
-                    BookedDateTime = dateTime,
-                    UserId = booking.UserId,
-                    TableId = booking.TableId
-                };
+            bool isTableBooked = await _tableRepo.CheckIfTableAlreadyBooked(booking.TableId, dateTime);
 
-                await _bookingRepo.CreateBookingAsync(newBooking);
-            }
-            catch (Exception ex)
+            if (isTableBooked)
             {
-                throw new Exception($"An error occured while trying to create booking. {ex.Message}");
+                throw new Exception("Table is already booked the requested time.");
             }
-            
+            else
+            {
+                try
+                {
+                    var newBooking = new Booking
+                    {
+                        NoOfCustomers = booking.NoOfCustomers,
+                        BookedDateTime = dateTime,
+                        BookingEnds = dateTime.AddHours(2),
+                        UserId = booking.UserId,
+                        TableId = booking.TableId
+                    };
+
+                    await _bookingRepo.CreateBookingAsync(newBooking);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"An error occured while trying to create booking. {ex.Message}");
+                }
+            }
         }
 
         public async Task UpdateBookingAsync(BookingDTO booking)
@@ -75,6 +86,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
             await CheckIfUserAndTableExist(booking.UserId, booking.TableId);
 
             DateTime dateTime = Helper.DateTimeCleanUp(booking.BookedDateTime);
+            DateTime bookingEnds = Helper.DateTimeCleanUp(booking.BookingEnds);
 
             try
             {
@@ -83,6 +95,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
                     BookingId = booking.BookingId,
                     NoOfCustomers = booking.NoOfCustomers,
                     BookedDateTime = dateTime,
+                    BookingEnds = bookingEnds,
                     UserId = booking.UserId,
                     TableId = booking.TableId
                 };
@@ -120,6 +133,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
                     BookingId = b.BookingId,
                     NoOfCustomers = b.NoOfCustomers,
                     BookedDateTime = b.BookedDateTime,
+                    BookingEnds = b.BookingEnds,
                     UserId = b.UserId,
                     TableId = b.TableId
                 }).ToList();

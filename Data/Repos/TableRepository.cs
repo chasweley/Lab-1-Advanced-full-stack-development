@@ -1,6 +1,8 @@
 ﻿using Labb_1___Avancerad_fullstackutveckling.Data.Repos.IRepos;
 using Labb_1___Avancerad_fullstackutveckling.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System;
 
 namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
 {
@@ -47,14 +49,28 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
             var listOfTables = await _context.Tables.ToListAsync();
             return listOfTables;
         }
-
-        public async Task<IEnumerable<Table>> AvailableTablesSpecificDateAndTimeAsync(DateTime dateTime)
+        // Behöver finslipas
+        public async Task<List<int>> AvailableTablesSpecificDateAndTimeAsync(DateTime dateTime)
         {
-            var listOfAvailableTables = await _context.Bookings
-                .Where(d => d.BookedDateTime != dateTime)
-                .Select(t => t.Table)
+            var listOfBookedTables = await _context.Bookings
+                .Where(b => (b.BookedDateTime >= dateTime.AddHours(2) && b.BookingEnds <= dateTime.AddHours(2))
+                || b.BookingEnds >= dateTime)
+                .Select(t => t.TableId)
+                .Distinct()
                 .ToListAsync();
-            return listOfAvailableTables;
+           
+            return listOfBookedTables;
+        }
+        // Behöver finslipas
+        public async Task<bool> CheckIfTableAlreadyBooked(int tableId, DateTime dateTime)
+        {
+            var isTableBooked = await _context.Bookings
+                .AnyAsync(t => t.TableId == tableId && ((t.BookedDateTime >= dateTime && t.BookingEnds <= dateTime.AddHours(2))
+                || (t.BookedDateTime < dateTime) && t.BookingEnds > dateTime));
+
+            return isTableBooked;
+
+
         }
     }
 }
