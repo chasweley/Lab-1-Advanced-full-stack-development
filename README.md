@@ -29,8 +29,7 @@ POST /api/User/Create
 ```
 
 **Response body:**
-200 OK User created successfully.
-400 An error occured while trying to create user. {ex.Message}
+200 OK User created successfully. OR 400 An error occured while trying to create user. {ex.Message}
 
 ```
 POST /api/User/Update
@@ -45,15 +44,13 @@ POST /api/User/Update
 ```
 
 **Response body:**
-200 OK User updated successfully.
-400 An error occured while trying to update user. {ex.Message}
+200 OK User updated successfully. OR 400 An error occured while trying to update user. {ex.Message}
 
 ```
 DELETE /api/User/Delete
 ```
 **Response body:**
-200 OK User deleted successfully.
-400 An error occured while trying to delete user. {ex.Message}
+200 OK User deleted successfully. OR 400 An error occured while trying to delete user. {ex.Message}
 
 ```
 GET /api/User/
@@ -74,6 +71,8 @@ GET /api/User/
   }
 ]
 ```
+OR 
+400 {ex.Message}
 
 ## Table
 ```
@@ -86,7 +85,6 @@ GET /api/Table/{tableId}
   "seatingCapacity": 12
 }
 ```
-400: No table found.
 
 ```
 POST /api/Table/Create
@@ -99,8 +97,7 @@ POST /api/Table/Create
 ```
 
 **Response body:**
-200 OK Table successfully created.
-400 An error occured while trying to create table. {ex.Message}
+200 OK Table successfully created. OR 400 An error occured while trying to create table. {ex.Message}
 
 ```
 POST /api/Table/Update
@@ -114,15 +111,13 @@ POST /api/Table/Update
 ```
 
 **Response body:**
-200 OK Table successfully updated.
-400 An error occured while trying to update table. {ex.Message}
+200 OK Table successfully updated. OR 400 An error occured while trying to update table. {ex.Message}
 
 ```
 DELETE /api/Table/Delete
 ```
 **Response body:**
-200 OK Table successfully deleted.
-400 An error occured while trying to delete table. {ex.Message}
+200 OK Table successfully deleted. OR 400 An error occured while trying to delete table. {ex.Message}
 
 ```
 GET /api/Table/
@@ -145,6 +140,8 @@ GET /api/Table/
   }
 ]
 ```
+OR 
+400 {ex.Message}
 
 ```
 GET /api/Table/Availability/{dateTime}
@@ -186,11 +183,8 @@ POST /api/Booking/Create
 }
 ```
 
-**Response:**
-200 OK Booking created successfully.
-400 An error occured while trying to create booking. {ex.Message}
-500 User was not found.
-500 Table was not found.
+**Response body:**
+200 OK Booking created successfully. OR 400 An error occured while trying to create booking. {ex.Message} OR 500 User was not found. OR 500 Table was not found.
 
 ```
 POST /api/Booking/Update
@@ -207,15 +201,13 @@ POST /api/Booking/Update
 ```
 
 **Response body:**
-200 OK Booking updated successfully.
-400 An error occured while trying to update booking. {ex.Message}
+200 OK Booking updated successfully. OR 400 An error occured while trying to update booking. {ex.Message}
 
 ```
 DELETE /api/Booking/Delete
 ```
 **Response body:**
-200 OK Booking deleted successfully.
-400 An error occured while trying to delete booking. {ex.Message}
+200 OK Booking deleted successfully. OR 400 An error occured while trying to delete booking. {ex.Message}
 
 ```
 GET /api/Booking
@@ -240,10 +232,11 @@ GET /api/Booking
   }
 ]
 ```
+OR 
 400 {ex.Message}
 
 ## MenuItem
-```c#
+```
 POST /api/MenuItem/{menuItemId}
 ```
 **Response body:**
@@ -257,7 +250,7 @@ POST /api/MenuItem/{menuItemId}
 }
 ```
 
-```c#
+```
 POST /api/MenuItem/Create
 ```
 **Request body:**
@@ -270,10 +263,9 @@ POST /api/MenuItem/Create
 ```
 
 **Response body:**
-200 OK User created successfully.
-400 An error occured while trying to create menu item. {ex.Message}
+200 OK Menu item created successfully. OR 400 An error occured while trying to create menu item. {ex.Message}
 
-```c#
+```
 POST /api/MenuItem/Update
 ```
 **Request body:**
@@ -287,17 +279,15 @@ POST /api/MenuItem/Update
 ```
 
 **Response body:**
-200 OK Table successfully updated.
-400 An error occured while trying to update menu item. {ex.Message}
+200 OK Table successfully updated. OR 400 An error occured while trying to update menu item. {ex.Message}
 
-```c#
+```
 DELETE /api/MenuItem/Delete
 ```
-**Response:**
-200 OK Menu item deleted successfully.
-400 An error occured while trying to delete menu item. {ex.Message}
+**Response body:**
+200 OK Menu item deleted successfully. OR 400 An error occured while trying to delete menu item. {ex.Message}
 
-```c#
+```
 GET /api/MenuItem
 ```
 **Response body:**
@@ -318,4 +308,5 @@ GET /api/MenuItem
   }
 ]
 ```
+OR 
 400 {ex.Message}
