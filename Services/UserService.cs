@@ -16,60 +16,94 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
 
         public async Task<UserDTO> GetUserByIdAsync(int userId)
         {
-            var user = await _userRepo.GetUserByIdAsync(userId);
-
-            if (user == null) { return null; }
-
-            return new UserDTO
+            try
             {
-                UserId = userId,
-                Name = user.Name,
-                PhoneNo = user.PhoneNo
-            };
-        }
+                var user = await _userRepo.GetUserByIdAsync(userId);
 
-        public async Task CreateUserAsync(UserDTO user)
-        {
-            var newUser = new User
-            {
-                Name = user.Name,
-                PhoneNo = user.PhoneNo
-            };
+                if (user == null) { return null; }
 
-            await _userRepo.CreateUserAsync(newUser);
-        }
-
-        public async Task UpdateUserAsync(UserDTO user)
-        {
-            if (user != null)
-            {
-                var updatedUser = new User
+                return new UserDTO
                 {
                     UserId = user.UserId,
                     Name = user.Name,
                     PhoneNo = user.PhoneNo
                 };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
+            }
+        }
 
-                await _userRepo.UpdateUserAsync(updatedUser);
+        public async Task CreateUserAsync(CreateUserDTO user)
+        {
+            try
+            {
+                var newUser = new User
+                {
+                    Name = user.Name,
+                    PhoneNo = user.PhoneNo
+                };
+
+                await _userRepo.CreateUserAsync(newUser);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occured while trying to create user. {ex.Message}");
+            }
+        }
+
+        public async Task UpdateUserAsync(UserDTO user)
+        {
+            try
+            {
+                if (user != null)
+                {
+                    var updatedUser = new User
+                    {
+                        UserId = user.UserId,
+                        Name = user.Name,
+                        PhoneNo = user.PhoneNo
+                    };
+
+                    await _userRepo.UpdateUserAsync(updatedUser);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occured while trying to update user. {ex.Message}");
             }
         }
 
         public async Task DeleteUserAsync(int userId)
         {
-            await _userRepo.DeleteUserAsync(userId);
+            try
+            {
+                await _userRepo.DeleteUserAsync(userId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occured while trying to delete user. {ex.Message}");
+            }
         }
 
         public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
         {
-            var listOfUsers = await _userRepo.GetAllUsersAsync();
-
-            // Select går igenom varenda instans
-            return listOfUsers.Select(u => new UserDTO
+            try
             {
-                UserId = u.UserId,
-                Name = u.Name,
-                PhoneNo = u.PhoneNo,
-            }).ToList();
+                var listOfUsers = await _userRepo.GetAllUsersAsync();
+
+                return listOfUsers.Select(u => new UserDTO
+                {
+                    UserId = u.UserId,
+                    Name = u.Name,
+                    PhoneNo = u.PhoneNo,
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
+            }
         }
     }
 }

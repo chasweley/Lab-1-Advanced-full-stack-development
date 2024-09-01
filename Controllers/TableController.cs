@@ -25,24 +25,24 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<ActionResult> CreateUser(TableDTO table)
+        public async Task<ActionResult> CreateUser(CreateTableDTO table)
         {
             await _tableService.CreateTableAsync(table);
-            return Ok(table);
+            return Ok("Table created successfully.");
         }
 
         [HttpPut("Update")]
         public async Task<ActionResult> UpdateUser(TableDTO table)
         {
             await _tableService.UpdateTableAsync(table);
-            return Ok(table);
+            return Ok("Table updated successfully.");
         }
 
         [HttpDelete("Delete")]
         public async Task<ActionResult> DeleteUser(int tableId)
         {
             await _tableService.DeleteTableAsync(tableId);
-            return Ok();
+            return Ok("Table deleted successfully.");
         }
 
         [HttpGet]

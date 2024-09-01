@@ -23,24 +23,24 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<ActionResult> CreateBooking(BookingDTO booking)
+        public async Task<ActionResult> CreateBooking(CreateBookingDTO booking)
         {
             await _bookingService.CreateBookingAsync(booking);
-            return Ok(booking);
+            return Ok("Booking created successfully.");
         }
 
         [HttpPut("Update")]
         public async Task<ActionResult> UpdateBooking(BookingDTO booking)
         {
             await _bookingService.UpdateBookingAsync(booking);
-            return Ok(booking);
+            return Ok("Booking updated successfully.");
         }
 
         [HttpDelete("Delete")]
         public async Task<ActionResult> DeleteBooking(int bookingId)
         {
             await _bookingService.DeleteBookingAsync(bookingId);
-            return Ok();
+            return Ok("Booking deleted successfully.");
         }
 
         [HttpGet]

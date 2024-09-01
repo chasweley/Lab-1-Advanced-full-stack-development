@@ -36,13 +36,13 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
                     TableId = booking.TableId
                 };
             }
-            catch
+            catch (Exception ex)
             {
-                throw new Exception("Could not retrieve data from database.");
+                throw new Exception($"{ex.Message}");
             }
         }
 
-        public async Task CreateBookingAsync(BookingDTO booking)
+        public async Task CreateBookingAsync(CreateBookingDTO booking)
         {
             // To check if user and table exist before creating the booking
             // If not, exception is thrown
@@ -63,9 +63,9 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
 
                 await _bookingRepo.CreateBookingAsync(newBooking);
             }
-            catch
+            catch (Exception ex)
             {
-                throw new Exception("An error occured while trying to save to the database.");
+                throw new Exception($"An error occured while trying to create booking. {ex.Message}");
             }
             
         }
@@ -89,9 +89,9 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
 
                 await _bookingRepo.UpdateBookingAsync(updatedBooking);
             }
-            catch
+            catch (Exception ex)
             {
-                throw new Exception("An error occured while trying to save to the database.");
+                throw new Exception($"An error occured while trying to update booking. {ex.Message}");
             }
 
         }
@@ -102,9 +102,9 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
             {
                 await _bookingRepo.DeleteBookingAsync(bookingId);
             }
-            catch 
+            catch (Exception ex)
             {
-                throw new Exception("An error occured while trying to delete booking.");
+                throw new Exception($"An error occured while trying to delete booking. {ex.Message}");
             }
             
         }
@@ -124,9 +124,9 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
                     TableId = b.TableId
                 }).ToList();
             }
-            catch
+            catch (Exception ex)
             {
-                throw new Exception("An error occured while trying to get data from database.");
+                throw new Exception($"{ex.Message}");
             }
         }
 
@@ -140,9 +140,9 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
                 var table = await _tableRepo.GetTableByIdAsync(tableId);
                 if (table == null) throw new Exception("Table was not found.");
             }
-            catch
+            catch (Exception ex)
             {
-                throw new Exception("Error when searching database.");
+                throw new Exception($"{ex.Message}");
             }
         }
     }

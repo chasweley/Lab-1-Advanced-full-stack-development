@@ -2,9 +2,8 @@
 
 namespace Labb_1___Avancerad_fullstackutveckling.Models.DTOs
 {
-    public class BookingDTO
+    public class CreateBookingDTO
     {
-        public int BookingId { get; set; }
         [JsonPropertyName("numberOfCustomers")]
         public int NoOfCustomers { get; set; }
         public DateTime BookedDateTime { get; set; }

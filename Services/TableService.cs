@@ -16,63 +16,105 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
 
         public async Task<TableDTO> GetTableByIdAsync(int tableId)
         {
-            var table = await _tableRepo.GetTableByIdAsync(tableId);
-
-            if (table == null) { return null; }
-
-            return new TableDTO
+            try
             {
-                TableId = table.TableId,
-                SeatingCapacity = table.SeatingCapacity
-            };
+                var table = await _tableRepo.GetTableByIdAsync(tableId);
+
+                if (table == null) { return null; }
+
+                return new TableDTO
+                {
+                    TableId = table.TableId,
+                    SeatingCapacity = table.SeatingCapacity
+                };
+            }
+            catch (Exception ex) 
+            { 
+                throw new Exception($"{ex.Message}");
+            }
         }
 
-        public async Task CreateTableAsync(TableDTO table)
+        public async Task CreateTableAsync(CreateTableDTO table)
         {
-            var newTable = new Table { SeatingCapacity = table.SeatingCapacity };
+            try
+            {
+                var newTable = new Table { SeatingCapacity = table.SeatingCapacity };
 
-            await _tableRepo.CreateTableAsync(newTable);
+                await _tableRepo.CreateTableAsync(newTable);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occured while trying to create table. {ex.Message}");
+            }
         }
 
         public async Task UpdateTableAsync(TableDTO table)
         {
-            if (table != null)
+            try
             {
-                var updatedTable = new Table
+                if (table != null)
                 {
-                    TableId = table.TableId,
-                    SeatingCapacity = table.SeatingCapacity,
-                };
+                    var updatedTable = new Table
+                    {
+                        TableId = table.TableId,
+                        SeatingCapacity = table.SeatingCapacity,
+                    };
 
-                await _tableRepo.UpdateTableAsync(updatedTable);
+                    await _tableRepo.UpdateTableAsync(updatedTable);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occured while trying to update table. {ex.Message}");
             }
         }
 
         public async Task DeleteTableAsync(int tableId)
         {
-            await _tableRepo.DeleteTableAsync(tableId);
+            try
+            {
+                await _tableRepo.DeleteTableAsync(tableId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"An error occured while trying to delete table. {ex.Message}");
+            }
         }
 
         public async Task<IEnumerable<TableDTO>> GetAllTablesAsync()
         {
-            var listOfTables = await _tableRepo.GetAllTablesAsync();
+            try
+            {
+                var listOfTables = await _tableRepo.GetAllTablesAsync();
 
-            return listOfTables.Select(t => new TableDTO 
-            { 
-                TableId = t.TableId, 
-                SeatingCapacity = t.SeatingCapacity 
-            }).ToList();
+                return listOfTables.Select(t => new TableDTO
+                {
+                    TableId = t.TableId,
+                    SeatingCapacity = t.SeatingCapacity
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
+            }
         }
 
         public async Task<IEnumerable<TableDTO>> AvailableTablesSpecificDateAndTimeAsync(DateTime dateTime)
         {
-            var listOfAvailableTables = await _tableRepo.AvailableTablesSpecificDateAndTimeAsync(dateTime);
-
-            return listOfAvailableTables.Select(t => new TableDTO
+            try
             {
-                TableId = t.TableId,
-                SeatingCapacity = t.SeatingCapacity
-            }).ToList();
+                var listOfAvailableTables = await _tableRepo.AvailableTablesSpecificDateAndTimeAsync(dateTime);
+
+                return listOfAvailableTables.Select(t => new TableDTO
+                {
+                    TableId = t.TableId,
+                    SeatingCapacity = t.SeatingCapacity
+                }).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{ex.Message}");
+            }
         }
     }
 }
