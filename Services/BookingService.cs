@@ -45,7 +45,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
             // To clean up the time so seconds and milliseconds won't be saved to the database
             DateTime dateTime = Helper.DateTimeCleanUp(booking.BookedDateTime);
 
-            bool isTableBooked = await _tableRepo.CheckIfTableAlreadyBooked(booking.TableId, dateTime);
+            bool isTableBooked = await _tableRepo.CheckIfTableAlreadyBookedAsync(booking.TableId, dateTime);
 
             if (isTableBooked)
             {

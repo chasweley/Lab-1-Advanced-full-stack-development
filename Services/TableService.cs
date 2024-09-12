@@ -94,22 +94,19 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
 
         public async Task<IEnumerable<TableDTO>> AvailableTablesSpecificDateAndTimeAsync(DateTime dateTime)
         {
-            var listOfBookedTables = await _tableRepo.BookedTablesDateAndTimeAsync(dateTime);
-            listOfBookedTables = listOfBookedTables.ToList();
-
             var listOfTables = await _tableRepo.GetAllTablesAsync();
 
             List<Table> listOfAvailableTables = listOfTables.ToList();
 
-            if (listOfBookedTables == null)
+            foreach (Table table in listOfTables)
             {
-                return null;
-            }
+                bool isTableBooked = await _tableRepo.CheckIfTableAlreadyBookedAsync(table.TableId, dateTime);
 
-            foreach (var bookedTable in listOfBookedTables)
-            {
-                var tableToRemove = listOfAvailableTables.SingleOrDefault(t => t.TableId == bookedTable);
-                listOfAvailableTables.Remove(tableToRemove);
+                if (isTableBooked)
+                {
+                    var tableToRemove = listOfAvailableTables.SingleOrDefault(t => t.TableId == table.TableId);
+                    listOfAvailableTables.Remove(tableToRemove);
+                };
             }
 
             return listOfAvailableTables.Select(t => new TableDTO

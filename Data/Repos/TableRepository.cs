@@ -49,24 +49,13 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
             var listOfTables = await _context.Tables.ToListAsync();
             return listOfTables;
         }
+
         // Behöver finslipas
-        public async Task<IEnumerable<int>> BookedTablesDateAndTimeAsync(DateTime dateTime)
-        {
-            var listOfBookedTables = await _context.Bookings
-                .Where(b => (b.BookedDateTime >= dateTime.AddHours(2) && b.BookingEnds <= dateTime.AddHours(2))
-                || b.BookingEnds >= dateTime)
-                .Select(t => t.TableId)
-                .Distinct()
-                .ToListAsync();
-           
-            return listOfBookedTables;
-        }
-        // Behöver finslipas
-        public async Task<bool> CheckIfTableAlreadyBooked(int tableId, DateTime dateTime)
+        public async Task<bool> CheckIfTableAlreadyBookedAsync(int tableId, DateTime dateTime)
         {
             var isTableBooked = await _context.Bookings
                 .AnyAsync(t => t.TableId == tableId && ((t.BookedDateTime >= dateTime && t.BookingEnds <= dateTime.AddHours(2))
-                || (t.BookedDateTime < dateTime) && t.BookingEnds > dateTime));
+                || (t.BookedDateTime < dateTime && t.BookingEnds > dateTime)));
 
             return isTableBooked;
         }
