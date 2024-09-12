@@ -50,7 +50,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
             return listOfTables;
         }
         // Behöver finslipas
-        public async Task<List<int>> AvailableTablesSpecificDateAndTimeAsync(DateTime dateTime)
+        public async Task<IEnumerable<int>> BookedTablesDateAndTimeAsync(DateTime dateTime)
         {
             var listOfBookedTables = await _context.Bookings
                 .Where(b => (b.BookedDateTime >= dateTime.AddHours(2) && b.BookingEnds <= dateTime.AddHours(2))
@@ -69,8 +69,6 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
                 || (t.BookedDateTime < dateTime) && t.BookingEnds > dateTime));
 
             return isTableBooked;
-
-
         }
     }
 }

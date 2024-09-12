@@ -16,16 +16,9 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
 
         public async Task<MenuItem> GetMenuItemByIdAsync(int menuItemId)
         {
-            try
-            {
-                var menuItem = await _menuItemRepo.GetMenuItemByIdAsync(menuItemId);
+            var menuItem = await _menuItemRepo.GetMenuItemByIdAsync(menuItemId);
 
-                return menuItem;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"{ex.Message}");
-            }
+            return menuItem;
         }
         public async Task CreateMenuItemAsync(CreateMenuItemDTO menuItem)
         {
@@ -84,22 +77,15 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
 
         public async Task<IEnumerable<MenuItem>> GetAllMenuItemsAsync()
         {
-            try
-            {
-                var listOfMenuItems = await _menuItemRepo.GetAllMenuItemsAsync();
+            var listOfMenuItems = await _menuItemRepo.GetAllMenuItemsAsync();
 
-                return listOfMenuItems.Select(i => new MenuItem
-                {
-                    MenuItemId = i.MenuItemId,
-                    Name = i.Name,
-                    Price = i.Price,
-                    IsAvailable = i.IsAvailable
-                }).ToList();
-            }
-            catch (Exception ex)
+            return listOfMenuItems.Select(i => new MenuItem
             {
-                throw new Exception($"{ex.Message}");
-            }
+                MenuItemId = i.MenuItemId,
+                Name = i.Name,
+                Price = i.Price,
+                IsAvailable = i.IsAvailable
+            }).ToList();
         }
     }
 }

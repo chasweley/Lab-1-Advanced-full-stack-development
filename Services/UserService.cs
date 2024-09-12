@@ -16,23 +16,16 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
 
         public async Task<UserDTO> GetUserByIdAsync(int userId)
         {
-            try
-            {
-                var user = await _userRepo.GetUserByIdAsync(userId);
+            var user = await _userRepo.GetUserByIdAsync(userId);
 
-                if (user == null) { return null; }
+            if (user == null) { return null; }
 
-                return new UserDTO
-                {
-                    UserId = user.UserId,
-                    Name = user.Name,
-                    PhoneNo = user.PhoneNo
-                };
-            }
-            catch (Exception ex)
+            return new UserDTO
             {
-                throw new Exception($"{ex.Message}");
-            }
+                UserId = user.UserId,
+                Name = user.Name,
+                PhoneNo = user.PhoneNo
+            };
         }
 
         public async Task CreateUserAsync(CreateUserDTO user)
@@ -89,21 +82,14 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
 
         public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
         {
-            try
-            {
-                var listOfUsers = await _userRepo.GetAllUsersAsync();
+            var listOfUsers = await _userRepo.GetAllUsersAsync();
 
-                return listOfUsers.Select(u => new UserDTO
-                {
-                    UserId = u.UserId,
-                    Name = u.Name,
-                    PhoneNo = u.PhoneNo,
-                }).ToList();
-            }
-            catch (Exception ex)
+            return listOfUsers.Select(u => new UserDTO
             {
-                throw new Exception($"{ex.Message}");
-            }
+                UserId = u.UserId,
+                Name = u.Name,
+                PhoneNo = u.PhoneNo,
+            }).ToList();
         }
     }
 }

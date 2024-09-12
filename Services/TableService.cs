@@ -16,22 +16,15 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
 
         public async Task<TableDTO> GetTableByIdAsync(int tableId)
         {
-            try
+            var table = await _tableRepo.GetTableByIdAsync(tableId);
+
+            if (table == null) { return null; }
+
+            return new TableDTO
             {
-                var table = await _tableRepo.GetTableByIdAsync(tableId);
-
-                if (table == null) { return null; }
-
-                return new TableDTO
-                {
-                    TableId = table.TableId,
-                    SeatingCapacity = table.SeatingCapacity
-                };
-            }
-            catch (Exception ex) 
-            { 
-                throw new Exception($"{ex.Message}");
-            }
+                TableId = table.TableId,
+                SeatingCapacity = table.SeatingCapacity
+            };
         }
 
         public async Task CreateTableAsync(CreateTableDTO table)
@@ -101,34 +94,29 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
 
         public async Task<IEnumerable<TableDTO>> AvailableTablesSpecificDateAndTimeAsync(DateTime dateTime)
         {
-            try
+            var listOfBookedTables = await _tableRepo.BookedTablesDateAndTimeAsync(dateTime);
+            listOfBookedTables = listOfBookedTables.ToList();
+
+            var listOfTables = await _tableRepo.GetAllTablesAsync();
+
+            List<Table> listOfAvailableTables = listOfTables.ToList();
+
+            if (listOfBookedTables == null)
             {
-                var listOfBookedTables = await _tableRepo.AvailableTablesSpecificDateAndTimeAsync(dateTime);
-                var listOfTables = await _tableRepo.GetAllTablesAsync();
-
-                List<Table> listOfAvailableTables = listOfTables.ToList();
-
-                if (listOfBookedTables == null)
-                {
-                    return null;
-                }
-
-                foreach (var bookedTable in listOfBookedTables)
-                {
-                    var tableToRemove = listOfAvailableTables.SingleOrDefault(t => t.TableId == bookedTable);
-                    listOfAvailableTables.Remove(tableToRemove);
-                }
-
-                return listOfAvailableTables.Select(t => new TableDTO
-                {
-                    TableId = t.TableId,
-                    SeatingCapacity = t.SeatingCapacity
-                }).ToList();
+                return null;
             }
-            catch (Exception ex)
+
+            foreach (var bookedTable in listOfBookedTables)
             {
-                throw new Exception($"{ex.Message}");
+                var tableToRemove = listOfAvailableTables.SingleOrDefault(t => t.TableId == bookedTable);
+                listOfAvailableTables.Remove(tableToRemove);
             }
+
+            return listOfAvailableTables.Select(t => new TableDTO
+            {
+                TableId = t.TableId,
+                SeatingCapacity = t.SeatingCapacity
+            }).ToList();
         }
     }
 }

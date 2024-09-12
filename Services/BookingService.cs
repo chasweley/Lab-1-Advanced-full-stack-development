@@ -22,32 +22,24 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
 
         public async Task<BookingDTO> GetBookingByIdAsync(int bookingId)
         {
-            try 
-            {
-                var booking = await _bookingRepo.GetBookingByIdAsync(bookingId);
+            var booking = await _bookingRepo.GetBookingByIdAsync(bookingId);
 
-                if (booking == null) { return null; }
+            if (booking == null) { return null; }
 
-                return new BookingDTO
-                {
-                    BookingId = bookingId,
-                    NoOfCustomers = booking.NoOfCustomers,
-                    BookedDateTime = booking.BookedDateTime,
-                    BookingEnds = booking.BookingEnds,
-                    UserId = booking.UserId,
-                    TableId = booking.TableId
-                };
-            }
-            catch (Exception ex)
+            return new BookingDTO
             {
-                throw new Exception($"{ex.Message}");
-            }
+                BookingId = bookingId,
+                NoOfCustomers = booking.NoOfCustomers,
+                BookedDateTime = booking.BookedDateTime,
+                BookingEnds = booking.BookingEnds,
+                UserId = booking.UserId,
+                TableId = booking.TableId
+            };
         }
 
         public async Task CreateBookingAsync(CreateBookingDTO booking)
         {
             // To check if user and table exist before creating the booking
-            // If not, exception is thrown
             await CheckIfUserAndTableExist(booking.UserId, booking.TableId);
 
             // To clean up the time so seconds and milliseconds won't be saved to the database
@@ -124,40 +116,26 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
 
         public async Task<IEnumerable<BookingDTO>> GetAllBookingsAsync()
         {
-            try
-            {
-                var listOfBookings = await _bookingRepo.GetAllBookingsAsync();
+            var listOfBookings = await _bookingRepo.GetAllBookingsAsync();
 
-                return listOfBookings.Select(b => new BookingDTO
-                {
-                    BookingId = b.BookingId,
-                    NoOfCustomers = b.NoOfCustomers,
-                    BookedDateTime = b.BookedDateTime,
-                    BookingEnds = b.BookingEnds,
-                    UserId = b.UserId,
-                    TableId = b.TableId
-                }).ToList();
-            }
-            catch (Exception ex)
+            return listOfBookings.Select(b => new BookingDTO
             {
-                throw new Exception($"{ex.Message}");
-            }
+                BookingId = b.BookingId,
+                NoOfCustomers = b.NoOfCustomers,
+                BookedDateTime = b.BookedDateTime,
+                BookingEnds = b.BookingEnds,
+                UserId = b.UserId,
+                TableId = b.TableId
+            }).ToList();
         }
 
         public async Task CheckIfUserAndTableExist(int userId, int tableId)
         {
-            try
-            {
-                var user = await _userRepo.GetUserByIdAsync(userId);
-                if (user == null) throw new Exception("User was not found.");
+            var user = await _userRepo.GetUserByIdAsync(userId);
+            if (user == null) throw new Exception("User was not found.");
 
-                var table = await _tableRepo.GetTableByIdAsync(tableId);
-                if (table == null) throw new Exception("Table was not found.");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"{ex.Message}");
-            }
+            var table = await _tableRepo.GetTableByIdAsync(tableId);
+            if (table == null) throw new Exception("Table was not found.");
         }
     }
 }
