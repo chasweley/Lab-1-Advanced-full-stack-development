@@ -8,5 +8,6 @@ namespace Labb_1___Avancerad_fullstackutveckling.Models.DTOs
         public string Name { get; set; }
         public decimal Price { get; set; }
         public bool IsAvailable { get; set; }
+        public bool IsPopular { get; set; }
     }
 }

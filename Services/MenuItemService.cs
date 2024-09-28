@@ -28,7 +28,8 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
                 {
                     Name = menuItem.Name,
                     Price = menuItem.Price,
-                    IsAvailable = menuItem.IsAvailable
+                    IsAvailable = menuItem.IsAvailable,
+                    IsPopular = menuItem.IsPopular
                 };
 
                 await _menuItemRepo.CreateMenuItemAsync(newMenuItem);
@@ -50,7 +51,8 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
                         MenuItemId = menuItem.MenuItemId,
                         Name = menuItem.Name,
                         Price = menuItem.Price,
-                        IsAvailable = menuItem.IsAvailable
+                        IsAvailable = menuItem.IsAvailable,
+                        IsPopular = menuItem.IsPopular
                     };
 
                     await _menuItemRepo.UpdateMenuItemAsync(updatedMenuItem);
@@ -84,7 +86,8 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
                 MenuItemId = i.MenuItemId,
                 Name = i.Name,
                 Price = i.Price,
-                IsAvailable = i.IsAvailable
+                IsAvailable = i.IsAvailable,
+                IsPopular = i.IsPopular
             }).ToList();
         }
     }

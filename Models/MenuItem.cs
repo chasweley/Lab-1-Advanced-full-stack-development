@@ -14,5 +14,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Models
         public decimal Price { get; set; }
         [Required]
         public bool IsAvailable { get; set; }
+        [Required]
+        public bool IsPopular { get; set; }
     }
 }

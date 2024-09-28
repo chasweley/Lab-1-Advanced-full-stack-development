@@ -3,6 +3,7 @@ using Labb_1___Avancerad_fullstackutveckling.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
 {
@@ -35,7 +36,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
 
         public async Task DeleteTableAsync(int tableId)
         {
-            var table = await _context.Tables.FindAsync(tableId);
+            Table table = await _context.Tables.FindAsync(tableId);
 
             if (table != null) 
             {
@@ -46,16 +47,15 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
 
         public async Task<IEnumerable<Table>> GetAllTablesAsync()
         {
-            var listOfTables = await _context.Tables.ToListAsync();
+            List<Table> listOfTables = await _context.Tables.ToListAsync();
             return listOfTables;
         }
 
         // Behöver finslipas
         public async Task<bool> CheckIfTableAlreadyBookedAsync(int tableId, DateTime dateTime)
         {
-            var isTableBooked = await _context.Bookings
-                .AnyAsync(t => t.TableId == tableId && ((t.BookedDateTime >= dateTime && t.BookingEnds <= dateTime.AddHours(2))
-                || (t.BookedDateTime < dateTime && t.BookingEnds > dateTime)));
+            bool isTableBooked = await _context.Bookings
+                .AnyAsync(t => t.TableId == tableId && (t.BookedDateTime < dateTime.AddHours(2) && t.BookingEnds > dateTime));
 
             return isTableBooked;
         }

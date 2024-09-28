@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labb_1___Avancerad_fullstackutveckling.Migrations
 {
     [DbContext(typeof(TableBookingContext))]
-    [Migration("20240901145115_Init")]
-    partial class Init
+    [Migration("20240928152025_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,6 +66,9 @@ namespace Labb_1___Avancerad_fullstackutveckling.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MenuItemId"));
 
                     b.Property<bool>("IsAvailable")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPopular")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
