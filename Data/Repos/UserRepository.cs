@@ -19,6 +19,13 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
             return user;
         }
 
+        public async Task<int> GetUserIdByPhoneNoAsync(string phoneNo)
+        {
+            var user = await _context.Users.FindAsync(phoneNo);
+            if (user == null) { return 0; }
+            return user.UserId;
+        } 
+
         public async Task CreateUserAsync(User user)
         {
             await _context.Users.AddAsync(user);

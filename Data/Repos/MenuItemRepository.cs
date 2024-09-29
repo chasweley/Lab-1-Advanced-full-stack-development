@@ -33,7 +33,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
 
         public async Task DeleteMenuItemAsync(int menuItemId)
         {
-            var menuItem = await _context.MenuItems.FindAsync();
+            var menuItem = await _context.MenuItems.FindAsync(menuItemId);
 
             if (menuItem != null) 
             { 

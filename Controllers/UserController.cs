@@ -22,12 +22,12 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
             return Ok(user);
         }
 
-        [HttpPost("Create")]
-        public async Task<ActionResult> CreateUser(CreateUserDTO user)
-        {
-            await _userService.CreateUserAsync(user);
-            return Ok("User created successfully.");
-        }
+        //[HttpPost("Create")]
+        //public async Task<ActionResult> CreateUser(CreateUserDTO user)
+        //{
+        //    await _userService.CreateUserAsync(user);
+        //    return Ok("User created successfully.");
+        //}
 
         [HttpPut("Update")]
         public async Task<ActionResult> UpdateUser(UserDTO user)

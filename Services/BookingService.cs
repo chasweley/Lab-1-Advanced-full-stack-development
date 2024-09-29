@@ -39,8 +39,19 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
 
         public async Task CreateBookingAsync(CreateBookingDTO booking)
         {
-            // To check if user and table exist before creating the booking
-            await CheckIfUserAndTableExist(booking.UserId, booking.TableId);
+            int userId = await _userRepo.GetUserIdByPhoneNoAsync(booking.PhoneNo);
+
+            if (userId == 0) 
+            {
+                var newUser = new User
+                {
+                    Name = booking.Name,
+                    PhoneNo = booking.PhoneNo
+                };
+                await _userRepo.CreateUserAsync(newUser);
+
+                userId = await _userRepo.GetUserIdByPhoneNoAsync(booking.PhoneNo);
+            }
 
             // To clean up the time so seconds and milliseconds won't be saved to the database
             DateTime dateTime = Helper.DateTimeCleanUp(booking.BookedDateTime);
@@ -60,7 +71,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
                         NoOfCustomers = booking.NoOfCustomers,
                         BookedDateTime = dateTime,
                         BookingEnds = dateTime.AddHours(2),
-                        UserId = booking.UserId,
+                        UserId = userId,
                         TableId = booking.TableId
                     };
 
