@@ -39,19 +39,19 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
 
         public async Task CreateBookingAsync(CreateBookingDTO booking)
         {
-            int userId = await _userRepo.GetUserIdByPhoneNoAsync(booking.PhoneNo);
+            //int userId = await _userRepo.GetUserIdByPhoneNoAsync(booking.PhoneNo);
 
-            if (userId == 0) 
-            {
-                var newUser = new User
-                {
-                    Name = booking.Name,
-                    PhoneNo = booking.PhoneNo
-                };
-                await _userRepo.CreateUserAsync(newUser);
+            //if (userId == 0) 
+            //{
+            //    var newUser = new User
+            //    {
+            //        Name = booking.Name,
+            //        PhoneNo = booking.PhoneNo
+            //    };
+            //    await _userRepo.CreateUserAsync(newUser);
 
-                userId = await _userRepo.GetUserIdByPhoneNoAsync(booking.PhoneNo);
-            }
+            //    userId = await _userRepo.GetUserIdByPhoneNoAsync(booking.PhoneNo);
+            //}
 
             // To clean up the time so seconds and milliseconds won't be saved to the database
             DateTime dateTime = Helper.DateTimeCleanUp(booking.BookedDateTime);
@@ -71,7 +71,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
                         NoOfCustomers = booking.NoOfCustomers,
                         BookedDateTime = dateTime,
                         BookingEnds = dateTime.AddHours(2),
-                        UserId = userId,
+                        UserId = booking.UserId,
                         TableId = booking.TableId
                     };
 
@@ -86,7 +86,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
 
         public async Task UpdateBookingAsync(BookingDTO booking)
         {
-            await CheckIfUserAndTableExist(booking.UserId, booking.TableId);
+            //await CheckIfUserAndTableExist(booking.UserId, booking.TableId);
 
             DateTime dateTime = Helper.DateTimeCleanUp(booking.BookedDateTime);
             DateTime bookingEnds = Helper.DateTimeCleanUp(booking.BookingEnds);
@@ -129,15 +129,18 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
         {
             var listOfBookings = await _bookingRepo.GetAllBookingsAsync();
 
-            return listOfBookings.Select(b => new BookingDTO
-            {
-                BookingId = b.BookingId,
-                NoOfCustomers = b.NoOfCustomers,
-                BookedDateTime = b.BookedDateTime,
-                BookingEnds = b.BookingEnds,
-                UserId = b.UserId,
-                TableId = b.TableId
-            }).ToList();
+            return listOfBookings
+                .Select(b => new BookingDTO
+                {
+                    BookingId = b.BookingId,
+                    NoOfCustomers = b.NoOfCustomers,
+                    BookedDateTime = b.BookedDateTime,
+                    BookingEnds = b.BookingEnds,
+                    UserId = b.UserId,
+                    //Name = b.User.Name,
+                    //PhoneNo = b.User.PhoneNo,
+                    TableId = b.TableId
+                }).ToList();
         }
 
         public async Task CheckIfUserAndTableExist(int userId, int tableId)

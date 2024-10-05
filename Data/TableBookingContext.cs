@@ -11,5 +11,6 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data
         public DbSet<Table> Tables { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<Account> Accounts { get; set; }
     }
 }

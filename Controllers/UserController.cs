@@ -1,5 +1,6 @@
 ﻿using Labb_1___Avancerad_fullstackutveckling.Models.DTOs;
 using Labb_1___Avancerad_fullstackutveckling.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Labb_1___Avancerad_fullstackutveckling.Controllers
@@ -16,20 +17,22 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
         }
 
         [HttpGet("{userId}")]
+        [Authorize]
         public async Task<ActionResult<UserDTO>> GetUserById(int userId)
         {
             var user = await _userService.GetUserByIdAsync(userId);
             return Ok(user);
         }
 
-        //[HttpPost("Create")]
-        //public async Task<ActionResult> CreateUser(CreateUserDTO user)
-        //{
-        //    await _userService.CreateUserAsync(user);
-        //    return Ok("User created successfully.");
-        //}
+        [HttpPost("Create")]
+        public async Task<ActionResult> CreateUser(CreateUserDTO user)
+        {
+            await _userService.CreateUserAsync(user);
+            return Ok("User created successfully.");
+        }
 
         [HttpPut("Update")]
+        [Authorize]
         public async Task<ActionResult> UpdateUser(UserDTO user)
         {
             await _userService.UpdateUserAsync(user);
@@ -37,6 +40,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
         }
 
         [HttpDelete("Delete")]
+        [Authorize]
         public async Task<ActionResult> DeleteUser(int userId)
         {
             await _userService.DeleteUserAsync(userId);
@@ -44,6 +48,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers()
         {
             var usersList = await _userService.GetAllUsersAsync();

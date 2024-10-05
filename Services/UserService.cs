@@ -28,14 +28,14 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
             };
         }
 
-        public async Task CreateUserAsync(string name, string phoneNo)
+        public async Task CreateUserAsync(CreateUserDTO user)
         {
             try
             {
                 var newUser = new User
                 {
-                    Name = name,
-                    PhoneNo = phoneNo
+                    Name = user.Name,
+                    PhoneNo = user.PhoneNo
                 };
 
                 await _userRepo.CreateUserAsync(newUser);

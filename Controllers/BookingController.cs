@@ -1,5 +1,6 @@
 ﻿using Labb_1___Avancerad_fullstackutveckling.Models.DTOs;
 using Labb_1___Avancerad_fullstackutveckling.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Labb_1___Avancerad_fullstackutveckling.Controllers
@@ -16,6 +17,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
         }
 
         [HttpGet("{bookingId}")]
+        [Authorize]
         public async Task<ActionResult<UserDTO>> GetBookingById(int bookingId)
         {
             var booking = await _bookingService.GetBookingByIdAsync(bookingId);
@@ -30,6 +32,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
         }
 
         [HttpPut("Update")]
+        [Authorize]
         public async Task<ActionResult> UpdateBooking(BookingDTO booking)
         {
             await _bookingService.UpdateBookingAsync(booking);
@@ -37,6 +40,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
         }
 
         [HttpDelete("Delete")]
+        [Authorize]
         public async Task<ActionResult> DeleteBooking(int bookingId)
         {
             await _bookingService.DeleteBookingAsync(bookingId);
@@ -44,6 +48,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<BookingDTO>>> GetAllBookings()
         {
             var bookingsList = await _bookingService.GetAllBookingsAsync();

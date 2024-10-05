@@ -1,6 +1,7 @@
 ﻿using Labb_1___Avancerad_fullstackutveckling.Models;
 using Labb_1___Avancerad_fullstackutveckling.Models.DTOs;
 using Labb_1___Avancerad_fullstackutveckling.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Labb_1___Avancerad_fullstackutveckling.Controllers
@@ -17,6 +18,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
         }
 
         [HttpGet("{menuItemId}")]
+        [Authorize]
         public async Task<ActionResult<MenuItem>> GetMenuItemById(int menuItemId)
         {
             var menuItem = await _menuItemService.GetMenuItemByIdAsync(menuItemId);
@@ -24,6 +26,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
         }
 
         [HttpPost("Create")]
+        [Authorize]
         public async Task<ActionResult> CreateMenuItem(CreateMenuItemDTO menuItem)
         {
             await _menuItemService.CreateMenuItemAsync(menuItem);
@@ -31,6 +34,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
         }
 
         [HttpPut("Update/")]
+        [Authorize]
         public async Task<ActionResult> UpdateMenuItem(MenuItem menuItem)
         {
             await _menuItemService.UpdateMenuItemAsync(menuItem);
@@ -38,6 +42,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
         }
 
         [HttpDelete("Delete/{menuItemId}")]
+        [Authorize]
         public async Task<IActionResult> DeleteMenuItem(int menuItemId)
         {
             await _menuItemService.DeleteMenuItemAsync(menuItemId);
