@@ -18,7 +18,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
 
         [HttpGet("{bookingId}")]
         [Authorize]
-        public async Task<ActionResult<UserDTO>> GetBookingById(int bookingId)
+        public async Task<ActionResult<BookingCompleteInfoDTO>> GetBookingById(int bookingId)
         {
             var booking = await _bookingService.GetBookingByIdAsync(bookingId);
             return Ok(booking);
@@ -33,7 +33,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
 
         [HttpPut("Update")]
         [Authorize]
-        public async Task<ActionResult> UpdateBooking(BookingDTO booking)
+        public async Task<ActionResult> UpdateBooking(BookingCompleteInfoDTO booking)
         {
             await _bookingService.UpdateBookingAsync(booking);
             return Ok("Booking updated successfully.");
@@ -49,7 +49,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<BookingDTO>>> GetAllBookings()
+        public async Task<ActionResult<IEnumerable<BookingCompleteInfoDTO>>> GetAllBookings()
         {
             var bookingsList = await _bookingService.GetAllBookingsAsync();
             return Ok(bookingsList);

@@ -21,7 +21,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
 
         public async Task<int> GetUserIdByPhoneNoAsync(string phoneNo)
         {
-            var user = await _context.Users.FindAsync(phoneNo);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNo == phoneNo);
             if (user == null) { return 0; }
             return user.UserId;
         } 

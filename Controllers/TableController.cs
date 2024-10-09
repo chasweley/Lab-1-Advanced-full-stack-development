@@ -27,7 +27,6 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
         }
 
         [HttpPost("Create")]
-        [Authorize]
         public async Task<ActionResult> CreateTable(CreateTableDTO table)
         {
             await _tableService.CreateTableAsync(table);
@@ -43,8 +42,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
         }
 
         [HttpDelete("Delete")]
-        [Authorize]
-        public async Task<ActionResult> DeleteUser(int tableId)
+        public async Task<ActionResult> DeleteTable(int tableId)
         {
             await _tableService.DeleteTableAsync(tableId);
             return Ok("Table deleted successfully.");

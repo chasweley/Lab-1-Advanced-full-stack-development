@@ -9,8 +9,6 @@ namespace Labb_1___Avancerad_fullstackutveckling.Models.DTOs
         public DateTime BookedDateTime { get; set; }
         public DateTime BookingEnds { get; set; }
         public int UserId { get; set; }
-        //public string Name { get; set; }
-        //public string PhoneNo { get; set; }
         public int TableId { get; set; }
     }
 }

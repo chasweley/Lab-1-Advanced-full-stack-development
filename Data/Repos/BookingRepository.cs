@@ -1,5 +1,6 @@
 ﻿using Labb_1___Avancerad_fullstackutveckling.Data.Repos.IRepos;
 using Labb_1___Avancerad_fullstackutveckling.Models;
+using Labb_1___Avancerad_fullstackutveckling.Models.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
@@ -14,7 +15,10 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
         }
         public async Task<Booking> GetBookingByIdAsync(int bookingId)
         {
-            var booking = await _context.Bookings.FindAsync(bookingId);
+            var booking = await _context.Bookings
+                .Include("Users")
+                .Include("Tables")
+                .FirstOrDefaultAsync(b => b.BookingId == bookingId);
             return booking;
         }
 
@@ -43,7 +47,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
 
         public async Task<IEnumerable<Booking>> GetAllBookingsAsync()
         {
-            var listOfBookings = await _context.Bookings.ToListAsync();
+            var listOfBookings = await _context.Bookings.Include("Users").Include("Tables").ToListAsync();
             return listOfBookings;
         }
     }

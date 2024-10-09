@@ -51,7 +51,6 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
             return listOfTables;
         }
 
-        // Behöver finslipas
         public async Task<bool> CheckIfTableAlreadyBookedAsync(int tableId, DateTime dateTime)
         {
             bool isTableBooked = await _context.Bookings
