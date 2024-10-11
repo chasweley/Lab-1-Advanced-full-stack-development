@@ -19,6 +19,15 @@ namespace Labb_1___Avancerad_fullstackutveckling
             // Add services to the container.
             builder.Services.AddDbContext<TableBookingContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddControllers();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("LocalReact", policy =>
+                {
+                    policy.WithOrigins("http://localhost:5173") // Om den ska ut på webben bör det vara en https länk, har vi deployat så är det förmodligen inte localhostlänk som ska skrivas in, det beror som "vem" som gör begäran
+                        .AllowAnyHeader()
+                        .AllowAnyMethod(); // Tillåter alla get, put, delete osv. vill man begränsa så göra man det på andra ställen
+                });
+            });
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -53,6 +62,7 @@ namespace Labb_1___Avancerad_fullstackutveckling
             var app = builder.Build();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCors("LocalReact");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
