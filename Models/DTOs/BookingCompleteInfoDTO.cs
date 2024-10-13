@@ -11,7 +11,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Models.DTOs
         public int UserId { get; set; }
         public string PhoneNo { get; set; }
         public string Name { get; set; }
-        public int TableId { get; set; }
-        public int SeatingCapacity { get; set; }
+        public int? TableId { get; set; }
+        public int? SeatingCapacity { get; set; }
     }
 }

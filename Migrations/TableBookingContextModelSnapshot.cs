@@ -68,7 +68,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Migrations
                     b.Property<int>("NoOfCustomers")
                         .HasColumnType("int");
 
-                    b.Property<int>("TableId")
+                    b.Property<int?>("TableId")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
@@ -90,6 +90,16 @@ namespace Labb_1___Avancerad_fullstackutveckling.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MenuItemId"));
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
@@ -152,21 +162,19 @@ namespace Labb_1___Avancerad_fullstackutveckling.Migrations
 
             modelBuilder.Entity("Labb_1___Avancerad_fullstackutveckling.Models.Booking", b =>
                 {
-                    b.HasOne("Labb_1___Avancerad_fullstackutveckling.Models.Table", "Table")
+                    b.HasOne("Labb_1___Avancerad_fullstackutveckling.Models.Table", "Tables")
                         .WithMany("Bookings")
-                        .HasForeignKey("TableId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TableId");
 
-                    b.HasOne("Labb_1___Avancerad_fullstackutveckling.Models.User", "User")
+                    b.HasOne("Labb_1___Avancerad_fullstackutveckling.Models.User", "Users")
                         .WithMany("Bookings")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Table");
+                    b.Navigation("Tables");
 
-                    b.Navigation("User");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Labb_1___Avancerad_fullstackutveckling.Models.Table", b =>

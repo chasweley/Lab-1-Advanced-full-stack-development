@@ -56,5 +56,12 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
             var listOfMenuItems = await _menuItemService.GetAllMenuItemsAsync();
             return Ok(listOfMenuItems);
         }
+
+        [HttpGet("PopularEntrees")]
+        public async Task<ActionResult<IEnumerable<MenuItem>>> GetAllPopularEntrees()
+        {
+            var listOfPopularEntrees = await _menuItemService.GetAllPopularEntreesAsync();
+            return Ok(listOfPopularEntrees);
+        }
     }
 }

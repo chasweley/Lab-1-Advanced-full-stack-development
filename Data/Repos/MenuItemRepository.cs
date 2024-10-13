@@ -47,5 +47,11 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos
             var listOfAllMenuItems = await _context.MenuItems.ToListAsync();
             return listOfAllMenuItems;
         }
+
+        public async Task<IEnumerable<MenuItem>> GetAllPopularEntreesAsync()
+        {
+            var listOfPopularEntrees = await _context.MenuItems.Where(p => p.IsPopular == true && p.Category == "Entree").ToListAsync();
+            return listOfPopularEntrees;
+        }
     }
 }

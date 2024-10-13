@@ -4,6 +4,7 @@ using Labb_1___Avancerad_fullstackutveckling.Models.DTOs;
 using Labb_1___Avancerad_fullstackutveckling.Services.IServices;
 using Labb_1___Avancerad_fullstackutveckling.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Labb_1___Avancerad_fullstackutveckling.Services
 {
@@ -26,18 +27,36 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
 
             if (booking == null) { return null; }
 
-            return new BookingCompleteInfoDTO
+            if (booking.TableId == null)
             {
-                BookingId = bookingId,
-                NoOfCustomers = booking.NoOfCustomers,
-                BookedDateTime = booking.BookedDateTime,
-                BookingEnds = booking.BookingEnds,
-                UserId = booking.UserId,
-                Name = booking.Users.Name,
-                PhoneNo = booking.Users.PhoneNo,
-                TableId = booking.TableId,
-                SeatingCapacity = booking.Tables.SeatingCapacity
-            };
+                return new BookingCompleteInfoDTO
+                {
+                    BookingId = bookingId,
+                    NoOfCustomers = booking.NoOfCustomers,
+                    BookedDateTime = booking.BookedDateTime,
+                    BookingEnds = booking.BookingEnds,
+                    UserId = booking.UserId,
+                    Name = booking.Users.Name,
+                    PhoneNo = booking.Users.PhoneNo,
+                    TableId = null,
+                    SeatingCapacity = null
+                };
+            }
+            else
+            {
+                return new BookingCompleteInfoDTO
+                {
+                    BookingId = bookingId,
+                    NoOfCustomers = booking.NoOfCustomers,
+                    BookedDateTime = booking.BookedDateTime,
+                    BookingEnds = booking.BookingEnds,
+                    UserId = booking.UserId,
+                    Name = booking.Users.Name,
+                    PhoneNo = booking.Users.PhoneNo,
+                    TableId = booking.TableId,
+                    SeatingCapacity = booking.Tables.SeatingCapacity
+                };
+            }
         }
 
         public async Task CreateBookingAsync(CreateBookingDTO booking)
@@ -59,7 +78,12 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
             // To clean up the time so seconds and milliseconds won't be saved to the database
             DateTime dateTime = Helper.DateTimeCleanUp(booking.BookedDateTime);
 
-            bool isTableBooked = await _tableRepo.CheckIfTableAlreadyBookedAsync(booking.TableId, dateTime);
+            bool isTableBooked = false;
+
+            if (booking.TableId != null)
+            {
+                isTableBooked = await _tableRepo.CheckIfTableAlreadyBookedAsync(booking.TableId.GetValueOrDefault(), dateTime);
+            }
 
             if (isTableBooked)
             {
@@ -127,35 +151,48 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
             {
                 throw new Exception($"An error occured while trying to delete booking. {ex.Message}");
             }
-            
+
         }
 
         public async Task<IEnumerable<BookingCompleteInfoDTO>> GetAllBookingsAsync()
         {
             var listOfBookings = await _bookingRepo.GetAllBookingsAsync();
-
+            
             return listOfBookings
-                .Select(b => new BookingCompleteInfoDTO
+                .Select(b =>
                 {
-                    BookingId = b.BookingId,
-                    NoOfCustomers = b.NoOfCustomers,
-                    BookedDateTime = b.BookedDateTime,
-                    BookingEnds = b.BookingEnds,
-                    UserId = b.UserId,
-                    Name = b.Users.Name,
-                    PhoneNo = b.Users.PhoneNo,
-                    TableId = b.TableId,
-                    SeatingCapacity = b.Tables.SeatingCapacity
+                    if (b.TableId == null)
+                    {
+                        return new BookingCompleteInfoDTO
+                        {
+                            BookingId = b.BookingId,
+                            NoOfCustomers = b.NoOfCustomers,
+                            BookedDateTime = b.BookedDateTime,
+                            BookingEnds = b.BookingEnds,
+                            UserId = b.UserId,
+                            Name = b.Users.Name,
+                            PhoneNo = b.Users.PhoneNo,
+                            TableId = null,
+                            SeatingCapacity = null
+                        };
+                    }
+                    else 
+                    {
+                        return new BookingCompleteInfoDTO
+                        {
+                            BookingId = b.BookingId,
+                            NoOfCustomers = b.NoOfCustomers,
+                            BookedDateTime = b.BookedDateTime,
+                            BookingEnds = b.BookingEnds,
+                            UserId = b.UserId,
+                            Name = b.Users.Name,
+                            PhoneNo = b.Users.PhoneNo,
+                            TableId = b.TableId,
+                            SeatingCapacity = b.Tables.SeatingCapacity
+                        };
+                    }
                 }).ToList();
         }
-
-        public async Task CheckIfUserAndTableExist(int userId, int tableId)
-        {
-            var user = await _userRepo.GetUserByIdAsync(userId);
-            if (user == null) throw new Exception("User was not found.");
-
-            var table = await _tableRepo.GetTableByIdAsync(tableId);
-            if (table == null) throw new Exception("Table was not found.");
-        }
     }
+
 }

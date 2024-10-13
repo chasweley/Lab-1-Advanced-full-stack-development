@@ -18,7 +18,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Models
         public User Users { get; set; }
 
         [ForeignKey("Tables")]
-        public int TableId { get; set; }
+        public int? TableId { get; set; }
         public Table Tables { get; set; }
     }
 }

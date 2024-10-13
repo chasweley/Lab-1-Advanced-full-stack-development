@@ -9,6 +9,5 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services.IServices
         Task UpdateBookingAsync(BookingCompleteInfoDTO booking);
         Task DeleteBookingAsync(int bookingId);
         Task<IEnumerable<BookingCompleteInfoDTO>> GetAllBookingsAsync();
-        Task CheckIfUserAndTableExist(int userId, int tableId);
     }
 }

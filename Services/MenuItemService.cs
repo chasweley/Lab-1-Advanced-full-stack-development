@@ -27,7 +27,9 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
                 var newMenuItem = new MenuItem
                 {
                     Name = menuItem.Name,
+                    Description = menuItem.Description,
                     Price = menuItem.Price,
+                    Category = menuItem.Category,
                     IsAvailable = menuItem.IsAvailable,
                     IsPopular = menuItem.IsPopular
                 };
@@ -50,7 +52,9 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
                     {
                         MenuItemId = menuItem.MenuItemId,
                         Name = menuItem.Name,
+                        Description = menuItem.Description,
                         Price = menuItem.Price,
+                        Category = menuItem.Category,
                         IsAvailable = menuItem.IsAvailable,
                         IsPopular = menuItem.IsPopular
                     };
@@ -85,9 +89,22 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
             {
                 MenuItemId = i.MenuItemId,
                 Name = i.Name,
+                Description = i.Description,
                 Price = i.Price,
+                Category = i.Category,
                 IsAvailable = i.IsAvailable,
                 IsPopular = i.IsPopular
+            }).ToList();
+        }
+
+        public async Task<IEnumerable<PopularEntreesDTO>> GetAllPopularEntreesAsync()
+        {
+            var listOfPopularEntrees = await _menuItemRepo.GetAllPopularEntreesAsync();
+
+            return listOfPopularEntrees.Select(e => new PopularEntreesDTO
+            {
+                Name = e.Name,
+                Price = e.Price,
             }).ToList();
         }
     }

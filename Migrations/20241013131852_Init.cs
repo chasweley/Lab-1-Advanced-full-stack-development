@@ -34,7 +34,9 @@ namespace Labb_1___Avancerad_fullstackutveckling.Migrations
                     MenuItemId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(10,2)", precision: 10, scale: 2, nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     IsAvailable = table.Column<bool>(type: "bit", nullable: false),
                     IsPopular = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -80,7 +82,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Migrations
                     BookedDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BookingEnds = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    TableId = table.Column<int>(type: "int", nullable: false)
+                    TableId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -89,8 +91,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Migrations
                         name: "FK_Bookings_Tables_TableId",
                         column: x => x.TableId,
                         principalTable: "Tables",
-                        principalColumn: "TableId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "TableId");
                     table.ForeignKey(
                         name: "FK_Bookings_Users_UserId",
                         column: x => x.UserId,

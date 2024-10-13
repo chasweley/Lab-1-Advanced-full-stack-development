@@ -8,6 +8,6 @@ namespace Labb_1___Avancerad_fullstackutveckling.Models.DTOs
         public DateTime BookedDateTime { get; set; }
         public string PhoneNo { get; set; }
         public string Name { get; set; }
-        public int TableId { get; set; }
+        public int? TableId { get; set; }
     }
 }

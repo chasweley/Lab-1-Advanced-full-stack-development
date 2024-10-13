@@ -10,5 +10,6 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services.IServices
         Task UpdateMenuItemAsync(MenuItem menuItem);
         Task DeleteMenuItemAsync(int menuItemId);
         Task<IEnumerable<MenuItem>> GetAllMenuItemsAsync();
+        Task<IEnumerable<PopularEntreesDTO>> GetAllPopularEntreesAsync();
     }
 }

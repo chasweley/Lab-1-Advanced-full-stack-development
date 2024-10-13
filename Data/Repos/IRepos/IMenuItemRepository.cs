@@ -9,5 +9,6 @@ namespace Labb_1___Avancerad_fullstackutveckling.Data.Repos.IRepos
         Task UpdateMenuItemAsync(MenuItem menuItem);
         Task DeleteMenuItemAsync(int menuItemId);
         Task<IEnumerable<MenuItem>> GetAllMenuItemsAsync();
+        Task<IEnumerable<MenuItem>> GetAllPopularEntreesAsync();
     }
 }
