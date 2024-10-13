@@ -28,7 +28,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
         public async Task<ActionResult> CreateBooking(CreateBookingDTO booking)
         {
             await _bookingService.CreateBookingAsync(booking);
-            return Ok("Booking created successfully.");
+            return Created();
         }
 
         [HttpPut("Update")]
@@ -39,7 +39,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
             return Ok("Booking updated successfully.");
         }
 
-        [HttpDelete("Delete")]
+        [HttpDelete("Delete/{bookingId}")]
         [Authorize]
         public async Task<ActionResult> DeleteBooking(int bookingId)
         {

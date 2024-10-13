@@ -92,7 +92,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
             }
         }
 
-        public async Task<IEnumerable<TableDTO>> AvailableTablesSpecificDateAndTimeAsync(DateTime dateTime)
+        public async Task<IEnumerable<TableDTO>> AvailableTablesAsync(DateTime dateTime, int noOfCustomers)
         {
             var listOfTables = await _tableRepo.GetAllTablesAsync();
 
@@ -109,7 +109,7 @@ namespace Labb_1___Avancerad_fullstackutveckling.Services
                 };
             }
 
-            return listOfAvailableTables.Select(t => new TableDTO
+            return listOfAvailableTables.Where(t => t.SeatingCapacity >= noOfCustomers).Select(t => new TableDTO
             {
                 TableId = t.TableId,
                 SeatingCapacity = t.SeatingCapacity

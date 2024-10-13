@@ -55,10 +55,10 @@ namespace Labb_1___Avancerad_fullstackutveckling.Controllers
             return Ok(listOfTables);
         }
 
-        [HttpGet("Availability/{dateTime}")]
-        public async Task<ActionResult<IEnumerable<TableDTO>>> AvailableTablesSpecificDateAndTime(DateTime dateTime)
+        [HttpGet("Availability/{dateTime}/{noOfCustomers}")]
+        public async Task<ActionResult<IEnumerable<TableDTO>>> AvailableTablesSpecificDateAndTime(DateTime dateTime, int noOfCustomers)
         {
-            var listOfAvailableTables = await _tableService.AvailableTablesSpecificDateAndTimeAsync(dateTime);
+            var listOfAvailableTables = await _tableService.AvailableTablesAsync(dateTime, noOfCustomers);
             return Ok(listOfAvailableTables);
         }
     }
